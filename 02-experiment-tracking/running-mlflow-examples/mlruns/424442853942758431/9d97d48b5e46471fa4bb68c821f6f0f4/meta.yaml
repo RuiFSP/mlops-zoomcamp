@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ruifspinto/Desktop/mlops-zoomcamp/02-experiment-tracking/running-mlflow-examples/mlruns/424442853942758431/9d97d48b5e46471fa4bb68c821f6f0f4/artifacts
+end_time: 1717091243481
+entry_point_name: ''
+experiment_id: '424442853942758431'
+lifecycle_stage: active
+run_id: 9d97d48b5e46471fa4bb68c821f6f0f4
+run_name: dapper-finch-460
+run_uuid: 9d97d48b5e46471fa4bb68c821f6f0f4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717091241450
+status: 3
+tags: []
+user_id: ruifspinto
