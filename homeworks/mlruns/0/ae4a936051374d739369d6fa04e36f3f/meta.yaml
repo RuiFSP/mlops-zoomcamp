@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ruifspinto/Desktop/mlops-zoomcamp/homeworks/mlruns/0/ae4a936051374d739369d6fa04e36f3f/artifacts
+end_time: 1717102821772
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ae4a936051374d739369d6fa04e36f3f
+run_name: amusing-dolphin-191
+run_uuid: ae4a936051374d739369d6fa04e36f3f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717102820992
+status: 3
+tags: []
+user_id: ruifspinto

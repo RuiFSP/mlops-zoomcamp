@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ruifspinto/Desktop/mlops-zoomcamp/homeworks/mlruns/0/7f012607c6e9422fa84ef6a4e845f1e5/artifacts
+end_time: 1717103754235
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7f012607c6e9422fa84ef6a4e845f1e5
+run_name: unruly-slug-888
+run_uuid: 7f012607c6e9422fa84ef6a4e845f1e5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717103748242
+status: 3
+tags: []
+user_id: ruifspinto
