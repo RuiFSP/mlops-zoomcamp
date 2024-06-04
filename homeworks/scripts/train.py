@@ -20,7 +20,11 @@ def load_pickle(filename: str):
 )
 def run_train(data_path: str):
 
+    mlflow.set_experiment("homework_question_3")
+
     with mlflow.start_run():
+
+        mlflow.autolog()
 
         X_train, y_train = load_pickle(os.path.join(data_path, "train.pkl"))
         X_val, y_val = load_pickle(os.path.join(data_path, "val.pkl"))
@@ -32,6 +36,9 @@ def run_train(data_path: str):
         rmse = root_mean_squared_error(y_val, y_pred)
 
         mlflow.log_metric("rmse", rmse)
+
+        mlflow.sklearn.log_model(rf, artifact_path="models")
+        print(f"default artifacts URI: '{mlflow.get_artifact_uri()}'")
 
 
 if __name__ == '__main__':

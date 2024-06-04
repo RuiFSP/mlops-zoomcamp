@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ruifspinto/Desktop/mlops-zoomcamp/homeworks/mlruns/0/e27520a7ece74239ba40e0d4bda7d44d/artifacts
+end_time: 1717511099772
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e27520a7ece74239ba40e0d4bda7d44d
+run_name: luxuriant-eel-508
+run_uuid: e27520a7ece74239ba40e0d4bda7d44d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717511089892
+status: 3
+tags: []
+user_id: ruifspinto

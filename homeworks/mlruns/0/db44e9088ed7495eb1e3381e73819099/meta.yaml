@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/ruifspinto/Desktop/mlops-zoomcamp/homeworks/mlruns/0/db44e9088ed7495eb1e3381e73819099/artifacts
+end_time: 1717511545320
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: db44e9088ed7495eb1e3381e73819099
+run_name: languid-smelt-889
+run_uuid: db44e9088ed7495eb1e3381e73819099
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717511535411
+status: 3
+tags: []
+user_id: ruifspinto
