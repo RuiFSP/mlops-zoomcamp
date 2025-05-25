@@ -14,6 +14,12 @@ MLOps Zoomcamp is a comprehensive course on Machine Learning Operations (MLOps) 
   - Data preprocessing, feature engineering, and model training
   - Metrics evaluation on training and validation datasets
 
+- `02-experiment-tracking/`
+  - Experiment tracking with MLflow
+  - Training and hyperparameter tuning for taxi trip duration prediction
+  - MLflow model registry and tracking server setup
+  - Green Taxi Trip data processing and model optimization
+
 ## Completed Assignments
 
 ### Module 1: Introduction to MLOps
@@ -32,24 +38,46 @@ Tools & Libraries used:
 - scikit-learn
 - Jupyter notebooks
 
+### Module 2: Experiment Tracking and Model Registry
+
+In this module, I implemented experiment tracking and model management using MLflow. The assignment focused on:
+
+- Setting up MLflow for experiment tracking and model versioning
+- Processing NYC Green Taxi Trip data for January to March 2023
+- Training RandomForestRegressor models with MLflow autologging
+- Running hyperparameter optimization with hyperopt
+- Setting up a local MLflow tracking server with SQLite backend
+- Managing model lifecycle using MLflow Model Registry
+- Evaluating and selecting the best model based on validation metrics
+
+Tools & Libraries used:
+- MLflow (version 1.27.0)
+- Hyperopt for hyperparameter tuning
+- scikit-learn (RandomForestRegressor)
+- Pandas, NumPy
+- SQLite for MLflow backend storage
+
 ## Setup and Installation
 
-This project uses Python 3.10+ and the following dependencies as specified in the pyproject.toml:
+This project uses Python 3.10+ and the following dependencies as defined in the `pyproject.toml` file:
+
+
+The project uses the `uv` package manager for faster dependency resolution and installation:
 
 ```bash
-# Create a virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Linux/Mac
+# Create a virtual environment using uv
+uv venv
+source .venv/bin/activate  # On Linux/Mac
 
-# Install dependencies
-pip install -e .
+# Install dependencies with uv
+uv pip install -e .
+
+# The dependencies are locked in the uv.lock file for reproducibility
 ```
 
 ## Future Modules
 
 I'll be adding more modules as I progress through the course:
-
-- Module 2: Experiment tracking and model registry
 - Module 3: Orchestration and ML pipelines
 - Module 4: Model deployment
 - Module 5: Model monitoring
