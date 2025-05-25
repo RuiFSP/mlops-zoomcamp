@@ -10,3 +10,7 @@ wheels/
 .venv
 
 02-experiment-tracking/notes
+02-experiment-tracking/output
+02-experiment-tracking/mlruns
+02-experiment-tracking/artifacts
+02-experiment-tracking/mlflow.db
