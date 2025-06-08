@@ -14,3 +14,5 @@ wheels/
 02-experiment-tracking/mlruns
 02-experiment-tracking/artifacts
 02-experiment-tracking/mlflow.db
+03-orchestration/mlruns
+mlartifacts
