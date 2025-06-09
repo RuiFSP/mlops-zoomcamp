@@ -14,7 +14,13 @@ wheels/
 02-experiment-tracking/mlruns
 02-experiment-tracking/artifacts
 02-experiment-tracking/mlflow.db
+
+# Orchestration module files
 03-orchestration/mlruns
 03-orchestration/mlflow.db
 03-orchestration/mlartifacts
+03-orchestration/mlflow_data
 03-orchestration/models
+03-orchestration/__pycache__
+03-orchestration/data
+03-orchestration/.ipynb_checkpoints

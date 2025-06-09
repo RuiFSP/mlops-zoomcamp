@@ -2,7 +2,6 @@
 # coding: utf-8
 
 import os
-import glob
 import pickle
 import yaml
 import pandas as pd
@@ -12,21 +11,25 @@ from sklearn.metrics import root_mean_squared_error
 from pathlib import Path
 from sklearn.feature_extraction import DictVectorizer
 
-import mlflow
-
 
 # Configure MLflow - check if there's a running server, otherwise use local directory
 def setup_mlflow():
+    # Get MLflow tracking URI from environment variable or use default
+    # When running in Docker, the MLFLOW_TRACKING_URI should be set to http://mlflow:5000
+    # When running locally, it defaults to http://localhost:5000
+    mlflow_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+
     try:
-        mlflow.set_tracking_uri("http://localhost:5000")
+        mlflow.set_tracking_uri(mlflow_uri)
         # Test the connection
         mlflow.MlflowClient().get_experiment_by_name("nyc-taxi-experiment")
-        print("Using MLflow server at http://localhost:5000")
-    except Exception:
-        print("Could not connect to MLflow server, using local directory")
+        print(f"Connected to MLflow server at {mlflow_uri}")
+    except Exception as e:
+        print(f"Could not connect to MLflow server at {mlflow_uri}: {str(e)}")
+        print("Using local directory for MLflow tracking")
         # Use relative path within the project directory
         mlflow_dir = "mlruns"
-        print(f"\tUsing local MLflow directory: {mlflow_dir}")
+        print(f"Using local MLflow directory: {mlflow_dir}")
         mlflow.set_tracking_uri(f"file:{mlflow_dir}")
 
     mlflow.set_experiment("nyc-taxi-experiment")
@@ -70,11 +73,15 @@ def read_dataframe(year, month=None, filename=None):
             # If local file doesn't exist, try to download from URL
             try:
                 print(f"Local file not found. Attempting to download from URL.")
-                url = f"https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{year}-{month:02d}.parquet"
+                url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{}-{:02d}.parquet".format(
+                    year, month
+                )
                 df = pd.read_parquet(url)
             except Exception as e:
                 raise Exception(
-                    f"Failed to read data: {e}. Please ensure the file exists at {local_path} or check your internet connection."
+                    "Failed to read data: {}. Please ensure the file exists at {} or check your internet connection.".format(
+                        e, local_path
+                    )
                 )
 
     # Preprocess the data

@@ -1,0 +1,54 @@
+# Set to use latest version of Docker Compose
+
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: mlflow.dockerfile
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    volumes:
+      - "${PWD}/mlflow_data:/home/mlflow_data/"
+    networks:
+      - ml-network
+    container_name: mlflow-server
+    restart: unless-stopped
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///home/mlflow_data/mlflow.db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+  
+  prefect:
+    build:
+      context: .
+      dockerfile: prefect.dockerfile
+    volumes:
+      - "${PWD}/data:/app/data"
+      - "${PWD}/models:/app/models"
+      - "${PWD}/mlflow_data:/app/mlflow_data"
+    networks:
+      - ml-network
+    container_name: prefect-workflow
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  ml-network:
+    driver: bridge
+    name: ml-network

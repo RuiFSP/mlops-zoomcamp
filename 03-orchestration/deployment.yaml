@@ -1,0 +1,12 @@
+
+name: monthly-taxi-duration-prediction
+description: Monthly training of NYC taxi duration prediction model
+version: 0.1.0
+tags:
+  - monthly
+  - production
+schedule:
+  cron: "0 0 1 * *"  # At midnight on the 1st day of each month
+flow_name: NYC Taxi Duration Prediction
+entrypoint: "taxi_prediction_flow.py:taxi_duration_prediction_pipeline"
+            

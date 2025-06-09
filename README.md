@@ -20,6 +20,13 @@ MLOps Zoomcamp is a comprehensive course on Machine Learning Operations (MLOps) 
   - MLflow model registry and tracking server setup
   - Green Taxi Trip data processing and model optimization
 
+- `03-orchestration/`
+  - Workflow orchestration using Prefect
+  - End-to-end ML pipeline for NYC taxi trip duration prediction
+  - Prefect deployment configuration and scheduling
+  - Integration of MLflow with Prefect for model tracking
+  - Docker containerization for MLflow and Prefect services
+
 ## Completed Assignments
 
 ### Module 1: Introduction to MLOps
@@ -57,6 +64,26 @@ Tools & Libraries used:
 - Pandas, NumPy
 - SQLite for MLflow backend storage
 
+### Module 3: Orchestration and ML Pipelines
+
+In this module, I implemented workflow orchestration for the NYC taxi trip duration prediction project using Prefect. The work involved:
+
+- Building an end-to-end ML pipeline with Prefect tasks and flows
+- Implementing automated data preparation and model training processes
+- Setting up Prefect deployments with scheduling capabilities
+- Integrating MLflow tracking within the Prefect workflow
+- Containerizing the entire workflow with Docker for reproducibility
+- Creating monitoring utilities for tracking model performance
+- Implementing error handling and retry mechanisms for workflow reliability
+- Setting up a complete MLOps environment with both Prefect server and workers
+
+Tools & Libraries used:
+- Prefect 3.x for workflow orchestration
+- Docker for containerization
+- MLflow for experiment tracking
+- scikit-learn for modeling
+- Shell scripts for automation
+
 ## Setup and Installation
 
 This project uses Python 3.10+ and the following dependencies as defined in the `pyproject.toml` file:
@@ -78,7 +105,6 @@ uv pip install -e .
 ## Future Modules
 
 I'll be adding more modules as I progress through the course:
-- Module 3: Orchestration and ML pipelines
 - Module 4: Model deployment
 - Module 5: Model monitoring
 - Module 6: Best practices
