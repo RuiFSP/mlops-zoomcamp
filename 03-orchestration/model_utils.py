@@ -16,7 +16,6 @@ import mlflow
 
 
 # Configure MLflow - check if there's a running server, otherwise use local directory
-# Configure MLflow - check if there's a running server, otherwise use local directory
 def setup_mlflow():
     try:
         mlflow.set_tracking_uri("http://localhost:5000")
