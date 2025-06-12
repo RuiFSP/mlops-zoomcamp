@@ -28,7 +28,15 @@ def setup_mlflow():
         print(f"Could not connect to MLflow server at {mlflow_uri}: {str(e)}")
         print("Using local directory for MLflow tracking")
         # Use relative path within the project directory
-        mlflow_dir = "mlruns"
+        # Check if we're running from the src directory or the project root
+        if os.path.exists("mlruns"):
+            mlflow_dir = "mlruns"
+        elif os.path.exists("../mlruns"):
+            mlflow_dir = "../mlruns"
+        else:
+            # Create the directory if it doesn't exist
+            os.makedirs("mlruns", exist_ok=True)
+            mlflow_dir = "mlruns"
         print(f"Using local MLflow directory: {mlflow_dir}")
         mlflow.set_tracking_uri(f"file:{mlflow_dir}")
 
@@ -38,7 +46,13 @@ def setup_mlflow():
 # Call setup once at module import time
 setup_mlflow()
 
-models_folder = Path("models")
+# Set up paths intelligently based on where the script is run from
+if os.path.exists("models"):
+    models_folder = Path("models")
+elif os.path.exists("../models"):
+    models_folder = Path("../models")
+else:
+    models_folder = Path("models")
 models_folder.mkdir(exist_ok=True)
 
 

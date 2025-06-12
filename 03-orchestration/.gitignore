@@ -1,0 +1,60 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+.env
+.venv
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local data and artifacts
+mlflow_data/
+mlartifacts/
+mlruns/
+logs/
+*.log
+
+# Jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# SQLite database
+*.db
+*.sqlite
+
+# Large data files (consider using Git LFS if needed)
+# Uncomment if you don't want to track these
+# data/*.parquet
+# data/*.csv
+
+# Docker
+.docker/
+
+# OS files
+.DS_Store
+Thumbs.db

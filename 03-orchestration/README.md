@@ -2,14 +2,31 @@
 
 This project implements an end-to-end ML pipeline for predicting NYC taxi trip durations using Prefect for orchestration and MLflow for experiment tracking.
 
+## Project Overview
+
+This MLOps project demonstrates how to build and manage a complete machine learning workflow for predicting NYC taxi trip durations.
+
+Key features:
+- **Automated ML Workflow**: Complete pipeline from data loading to model evaluation
+- **Workflow Orchestration**: Task scheduling and dependencies managed with Prefect
+- **Experiment Tracking**: All models and parameters tracked in MLflow
+- **Docker Integration**: Containerized services for reproducibility
+- **Monitoring**: Health checks and observability tools
+- **Visualization**: Custom metrics visualization
+- **Production-Ready**: Best practices for MLOps implementation
+
+> **Note**: This project has been reorganized with a cleaner directory structure. All functionality remains the same, but files have been moved to logical directories (`src`, `scripts`, `config`) for better organization.
+
 ## Table of Contents
 
 - [NYC Taxi Duration Prediction Workflow with Prefect](#nyc-taxi-duration-prediction-workflow-with-prefect)
+  - [Project Overview](#project-overview)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Requirements](#requirements)
   - [Project Structure](#project-structure)
   - [Setup and Installation](#setup-and-installation)
+  - [Getting Started](#getting-started)
   - [Setup and Running](#setup-and-running)
     - [MLflow Setup](#mlflow-setup)
       - [Option 1: Local MLflow Server](#option-1-local-mlflow-server)
@@ -51,6 +68,7 @@ This project implements an end-to-end ML pipeline for predicting NYC taxi trip d
     - [Infrastructure Improvements](#infrastructure-improvements)
     - [Benefits of These Enhancements](#benefits-of-these-enhancements)
     - [Next Steps for MLOps Enhancement](#next-steps-for-mlops-enhancement)
+  - [About the Project Reorganization](#about-the-project-reorganization)
   - [Homework](#homework)
     - [Question 1. Select the Tool](#question-1-select-the-tool)
     - [Question 2. Version](#question-2-version)
@@ -78,13 +96,28 @@ The workflow is designed to run automatically on a monthly schedule, using train
 
 ## Project Structure
 
-- `taxi_prediction_flow.py` - Main workflow implementation with Prefect
-- `model_utils.py` - Utility functions for data preparation and model training
+The project is organized into the following directory structure:
+
+- `src/` - Core Python modules
+  - `model_utils.py` - Utility functions for data preparation and model training
+  - `taxi_prediction_flow.py` - Main workflow implementation with Prefect
+  - `test_workflow.py` - End-to-end testing utilities
+- `scripts/` - Helper scripts and utilities
+  - `docker-services.sh` - Helper script for managing Docker containers
+  - `mlops-workflow.sh` - All-in-one workflow management script
+  - `mlflow-docker.sh` - Script to manage MLflow Docker container
+  - `mlflow_monitor.py` - Script for monitoring MLflow server health
+  - `visualize_metrics.py` - Utility for visualizing experiment metrics
+- `config/` - Configuration files
+  - `docker-compose.yml` - Docker Compose configuration
+  - `mlflow.dockerfile` - Dockerfile for MLflow service
+  - `prefect.dockerfile` - Dockerfile for Prefect service
+  - `deployment.yaml` - Prefect deployment configuration
 - `data/` - Directory containing yellow taxi data files
-- `mlflow_monitor.py` - Script for monitoring MLflow server health
-- `visualize_metrics.py` - Utility for visualizing experiment metrics
-- `docker-services.sh` - Helper script for managing Docker containers
-- `mlops-workflow.sh` - All-in-one workflow management script
+- `models/` - Directory for saved models
+- `mlflow_data/` - MLflow artifacts storage
+- `mlruns/` - MLflow runs and experiments
+
 
 ## Setup and Installation
 
@@ -99,6 +132,51 @@ source venv/bin/activate  # On Linux/Mac
 pip install -r requirements.txt
 ```
 
+## Getting Started
+
+To get started with this project, follow these steps:
+
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone https://github.com/DataTalksClub/mlops-zoomcamp.git
+   # Or your personal fork if you have one
+   cd mlops-zoomcamp/03-orchestration  # Path may vary depending on your setup
+   ```
+
+2. **Set up the environment**:
+   ```bash
+   # Create and activate virtual environment 
+   python -m venv venv
+   source venv/bin/activate
+   
+   # Install dependencies
+   pip install -r requirements.txt
+   ```
+
+3. **Initialize the project**:
+   ```bash
+   # Run the setup script to create directories and download data
+   ./mlops-workflow.sh setup
+   ```
+
+4. **Start the services**:
+   ```bash
+   # Start MLflow and Prefect (if using Docker)
+   ./mlops-workflow.sh start
+   ```
+
+5. **Run the workflow**:
+   ```bash
+   # Run the ML pipeline once
+   python src/taxi_prediction_flow.py
+   ```
+
+6. **View results** in MLflow UI:
+   ```bash
+   # Open your browser and navigate to:
+   # http://localhost:5000
+   ```
+
 ## Setup and Running
 
 ### MLflow Setup
@@ -109,7 +187,7 @@ Start the MLflow tracking server locally:
 
 ```bash
 # Navigate to the project directory
-cd /mlops-zoomcamp-2025/03-orchestration
+cd mlops-zoomcamp-2025/03-orchestration
 
 # Start the MLflow server
 mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db
@@ -121,12 +199,14 @@ You can run MLflow in Docker containers:
 
 ```bash
 # Navigate to the project directory
-cd /mlops-zoomcamp-2025/03-orchestration
+cd mlops-zoomcamp-2025/03-orchestration
 
 # Create the directory for MLflow data
 mkdir -p mlflow_data
 
 # Start MLflow using the helper script
+./scripts/docker-services.sh mlflow-only
+# OR use the symlink in the root directory
 ./docker-services.sh mlflow-only
 
 # Check logs
@@ -138,7 +218,8 @@ mkdir -p mlflow_data
 To run the workflow once locally:
 
 ```bash
-python taxi_prediction_flow.py
+# Using the file in src directory
+python src/taxi_prediction_flow.py
 ```
 
 ### Deploying Workflows
@@ -158,7 +239,7 @@ prefect work-pool create --type process "taxi-prediction-pool"
 #### 3. Create and Deploy the Workflow
 
 ```bash
-python taxi_prediction_flow.py --deploy
+python src/taxi_prediction_flow.py --deploy
 ```
 
 #### 4. Starting a Worker
@@ -213,6 +294,8 @@ The project includes helper scripts to manage Docker containers:
 
 ```bash
 # View all available options
+./scripts/docker-services.sh --help
+# or using the symlink
 ./docker-services.sh --help
 
 # Start all services
@@ -243,6 +326,8 @@ For a more streamlined experience, use the all-in-one MLOps workflow script:
 
 ```bash
 # Show available commands
+./scripts/mlops-workflow.sh help
+# or using the symlink
 ./mlops-workflow.sh help
 
 # Setup the environment
@@ -444,7 +529,7 @@ jobs:
         sleep 5  # Give server time to start
     
     - name: Run training workflow
-      run: python taxi_prediction_flow.py
+      run: python src/taxi_prediction_flow.py
       env:
         MLFLOW_TRACKING_URI: http://localhost:5000
     
@@ -476,7 +561,7 @@ Use the `visualize_metrics.py` script for custom visualizations of your MLflow m
 
 ```bash
 # Generate metric visualization
-python visualize_metrics.py --experiment-name "nyc-taxi-experiment" --metric "rmse"
+python scripts/visualize_metrics.py --experiment-name "nyc-taxi-experiment" --metric "rmse"
 ```
 
 ### Advanced Troubleshooting
@@ -569,22 +654,27 @@ Common Issues:
 4. **Resource Usage Optimization**: Add monitoring for container resource usage and optimization
 5. **Multi-Model Ensemble**: Implement capabilities for ensemble modeling using the best runs
 
- 
+## About the Project Reorganization
 
-This is what we used (adjusted for yellow dataset):
+This project was originally organized with all files in a flat structure, and has been reorganized to follow best practices:
 
-```python
-def read_dataframe(filename):
-    df = pd.read_parquet(filename)
+1. **Why the reorganization?**
+   - Improved code maintainability
+   - Better separation of concerns
+   - Clearer project structure for new contributors
+   - Enhanced scalability for future development
 
-    df['duration'] = df.tpep_dropoff_datetime - df.tpep_pickup_datetime
-    df.duration = df.duration.dt.total_seconds() / 60
+2. **What changed?**
+   - Core Python code moved to `src/` directory
+   - Helper scripts consolidated in `scripts/` directory
+   - Configuration files organized in `config/` directory
+   - Added READMEs in each directory for better documentation
+   - Created symbolic links for backward compatibility
 
-    df = df[(df.duration >= 1) & (df.duration <= 60)]
-
-    categorical = ['PULocationID', 'DOLocationID']
-    df[categorical] = df[categorical].astype(str)
-```
+3. **Do existing workflows still work?**
+   - Yes, all functionality remains the same
+   - All scripts can still be called from the project root via symbolic links
+   - Docker configurations and paths have been updated to work with the new structure
 
 ## Homework
 

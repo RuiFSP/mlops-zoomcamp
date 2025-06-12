@@ -4,7 +4,7 @@ services:
   mlflow:
     build:
       context: .
-      dockerfile: mlflow.dockerfile
+      dockerfile: config/mlflow.dockerfile
     ports:
       - "5000:5000"
       - "8080:8080"
@@ -30,7 +30,7 @@ services:
   prefect:
     build:
       context: .
-      dockerfile: prefect.dockerfile
+      dockerfile: config/prefect.dockerfile
     volumes:
       - "${PWD}/data:/app/data"
       - "${PWD}/models:/app/models"
