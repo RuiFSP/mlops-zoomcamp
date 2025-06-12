@@ -81,7 +81,6 @@ The workflow is designed to run automatically on a monthly schedule, using train
 - `taxi_prediction_flow.py` - Main workflow implementation with Prefect
 - `model_utils.py` - Utility functions for data preparation and model training
 - `data/` - Directory containing yellow taxi data files
-- `hello_world_flow.py` - Simple example flow for testing Prefect
 - `mlflow_monitor.py` - Script for monitoring MLflow server health
 - `visualize_metrics.py` - Utility for visualizing experiment metrics
 - `docker-services.sh` - Helper script for managing Docker containers
